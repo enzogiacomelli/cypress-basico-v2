@@ -48,10 +48,26 @@ describe('exibe mensagem de erro quando o telefone se torna obrigatório mas nã
 
 
 describe('teste de numero de telefone com valor não numérico', function() {
-  it('insere texto no campo telefone', function() {
+  it('insere texto no campo telefone e verifica valor do campo', function() {
       cy.get('input[id="phone"]').should('be.visible').type('texto').should('have.value', '')
   })
 }) 
+
+
+describe('teste de campo de seleção suspensa', function(){
+  it('seleciona um produto (YouTube) por seu texto', function(){
+    cy.get('select[id="product"]').should('be.visible').select('YouTube').should('have.value', 'youtube')
+  })
+
+  it('seleciona um produto (Mentoria) por seu valor (value)', function(){
+    cy.get('select[id="product"]').should('be.visible').select('mentoria').should('have.value', 'mentoria')
+  })
+
+  it('seleciona um produto (Blog) por seu índice', function(){
+    cy.get('select[id="product"]').should('be.visible').select(1).should('have.value', 'blog')
+  })
+})
+
 
 
 /*describe('envia o formuário com sucesso usando um comando customizado', function() {
