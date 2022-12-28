@@ -20,41 +20,30 @@ describe('preenche os campos obrigatórios e envia o formulário', function() {
 })
 
 
-describe('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
-  it('preenche os campos com e-mail invalido e clica no botão', function() {
-
+describe('Testes de tratamento de erros', function() {
+  it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
     cy.fillMandatoryFieldsAndSubmit('Enzo', 'Giacomelli', 'egiacomelli07%gmail.com', 'oloco meu')
     cy.get('span[class="error"]').should('be.visible')
   })
-})
 
-
-describe('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
-  it('apenas clica no botão sem preencher nada', function() {
+  it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
     cy.contains('button[type="submit"]', 'Enviar').should('be.visible').click()
     cy.get('span[class="error"]').should('be.visible')
   })
-})
 
-
-describe('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
-  it('preenche os campos para envio e clica em telefone', function() {
-
+  it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
     cy.get('input[id="phone-checkbox"]').should('be.visible').click()
     cy.fillMandatoryFieldsAndSubmit('Enzo', 'Giacomelli', 'egiacomelli07@gmail.com', 'oloco meu')
     cy.get('span[class="error"]').should('be.visible')
   })
-}) 
 
-
-describe('teste de numero de telefone com valor não numérico', function() {
-  it('insere texto no campo telefone e verifica valor do campo', function() {
-      cy.get('input[id="phone"]').should('be.visible').type('texto').should('have.value', '')
+  it('teste de numero de telefone com valor não numérico', function() {
+    cy.get('input[id="phone"]').should('be.visible').type('texto').should('have.value', '')
   })
-}) 
 
+})
 
-describe('teste de campo de seleção suspensa', function(){
+describe('testes de campo de seleção suspensa', function(){
   it('seleciona um produto (YouTube) por seu texto', function(){
     cy.get('select[id="product"]').should('be.visible').select('YouTube').should('have.value', 'youtube')
   })
