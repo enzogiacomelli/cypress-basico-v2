@@ -43,6 +43,7 @@ describe('Testes de tratamento de erros', function() {
 
 })
 
+
 describe('testes de campo de seleção suspensa', function(){
   it('seleciona um produto (YouTube) por seu texto', function(){
     cy.get('select[id="product"]').should('be.visible').select('YouTube').should('have.value', 'youtube')
@@ -56,6 +57,25 @@ describe('testes de campo de seleção suspensa', function(){
     cy.get('select[id="product"]').should('be.visible').select(1).should('have.value', 'blog')
   })
 })
+
+
+describe('testes radio input', function() {
+  it('marca o tipo de atendimento "Feedback"', function() {
+    cy.get('input[type="radio"][value="feedback"]').check().should('be.checked')
+    cy.get('input[type="radio"][value="elogio"]').should('be.not.checked')
+    cy.get('input[type="radio"][value="ajuda"]').should('be.not.checked')
+  })
+
+  it('marca cada tipo de atendimento', function() {
+    cy.get('input[type="radio"]')    //vale para todos os inputs do tipo radio(existem 3 na pagina)
+      .should('have.length', 3)     //verifica se realmente existem apenas 3
+      .each(function($radio){      //para cada radio button executa os comandos aninhados
+        cy.wrap($radio).check()   //marca o botão e dps checa se marcou
+        cy.wrap($radio).should('be.checked')
+      })
+  })
+})
+
 
 
 
