@@ -86,7 +86,31 @@ describe('testes de checkbox', function() {
   })
 })
 
+describe('testes de upload de arquivos', function(){
+  it('seleciona um arquivo da pasta fixtures', function(){
+    cy.get('input[id="file-upload"]').should('not.have.value').selectFile('cypress/fixtures/example.json')
+      .should(function($input){
+        expect($input[0].files[0].name).to.equal('example.json')
+      })
+  })
 
+  it('seleciona um arquivo simulando um drag-and-drop', function(){
+    cy.get('input[id="file-upload"]').should('not.have.value').selectFile('cypress/fixtures/example.json', {action: 'drag-drop'})
+      .should(function($input){
+          expect($input[0].files[0].name).to.equal('example.json')
+    })
+  })
+
+  it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function(){
+    cy.fixture('example.json').as('arquivoExemplo')
+    cy.get('input[id="file-upload"]').selectFile('@arquivoExemplo')      
+    .should(function($input){
+      expect($input[0].files[0].name).to.equal('example.json')
+    })
+  })
+
+
+})
 
 /*describe('envia o formuário com sucesso usando um comando customizado', function() {
   it('chama o comando', function() {
