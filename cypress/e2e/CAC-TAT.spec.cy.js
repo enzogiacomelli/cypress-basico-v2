@@ -32,7 +32,7 @@ describe('Testes de tratamento de erros', function() {
   })
 
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function() {
-    cy.get('input[id="phone-checkbox"]').should('be.visible').click()
+    cy.get('input[id="phone-checkbox"]').should('be.visible').check()
     cy.fillMandatoryFieldsAndSubmit('Enzo', 'Giacomelli', 'egiacomelli07@gmail.com', 'oloco meu')
     cy.get('span[class="error"]').should('be.visible')
   })
@@ -76,6 +76,15 @@ describe('testes radio input', function() {
   })
 })
 
+
+describe('testes de checkbox', function() {
+  it('marca ambos checkboxes, depois desmarca o último', function(){
+    cy.get('input[type="checkbox"]').should('have.length', 2).each(function($checkbox){
+      cy.wrap($checkbox).check()
+      cy.wrap($checkbox).should('be.checked')
+    }).last().uncheck().should('be.not.checked')
+  })
+})
 
 
 
