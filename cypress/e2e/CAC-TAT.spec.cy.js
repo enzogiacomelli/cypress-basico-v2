@@ -101,7 +101,7 @@ describe('testes de upload de arquivos', function(){
     })
   })
 
-  it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function(){
+  it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function(){
     cy.fixture('example.json').as('arquivoExemplo')
     cy.get('input[id="file-upload"]').selectFile('@arquivoExemplo')      
     .should(function($input){
@@ -111,6 +111,24 @@ describe('testes de upload de arquivos', function(){
 
 
 })
+
+
+describe('testes de navegação por links', function(){
+  it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', function(){
+    cy.get('a[href="privacy.html"]').should('have.attr', 'target', '_blank')
+  })
+
+  it('acessa a página da política de privacidade removendo o target e então clicando no link', function(){
+    cy.get('a[href="privacy.html"]').invoke('removeAttr', 'target').click()
+    cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT - Política de privacidade')
+  })
+})
+
+
+
+
+
+
 
 /*describe('envia o formuário com sucesso usando um comando customizado', function() {
   it('chama o comando', function() {
