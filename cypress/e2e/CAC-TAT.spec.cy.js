@@ -86,6 +86,7 @@ describe('testes de checkbox', function() {
   })
 })
 
+
 describe('testes de upload de arquivos', function(){
   it('seleciona um arquivo da pasta fixtures', function(){
     cy.get('input[id="file-upload"]').should('not.have.value').selectFile('cypress/fixtures/example.json')
