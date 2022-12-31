@@ -1,3 +1,5 @@
+const time = 3000
+
 beforeEach( function() {
   cy.visit('./src/index.html')
 })
@@ -11,19 +13,25 @@ describe('verifica o título da aplicação', function() {
 })
 
 
-describe('preenche os campos obrigatórios e envia o formulário', function() {
-  it('preenche os campos e clica no botão', function() {
+describe('teste de cenário com sucesso', function() {
+  it('preenche os campos obrigatórios e envia o formulário', function() {
 
+    cy.clock()
     cy.fillMandatoryFieldsAndSubmit('Enzo', 'Giacomelli', 'egiacomelli07@gmail.com', 'oloco meu')
     cy.get('span[class="success"]').should('be.visible')
+    cy.tick(time)
+    cy.get('span[class="success"]').should('not.be.visible')
   })
 })
 
 
 describe('Testes de tratamento de erros', function() {
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
+    cy.clock()
     cy.fillMandatoryFieldsAndSubmit('Enzo', 'Giacomelli', 'egiacomelli07%gmail.com', 'oloco meu')
     cy.get('span[class="error"]').should('be.visible')
+    cy.tick(time)
+    cy.get('span[class="error"]').should('not.be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function() {
@@ -126,8 +134,13 @@ describe('testes de navegação por links', function(){
 })
 
 
+describe('testes de campo de texto', function(){
+  it('preenche a area de texto usando o comando invoke', function(){
+    const texto = Cypress._.repeat('texto de teste ', 15)
+    cy.get('textarea[id="open-text-area"]').invoke('val', texto).should('have.value', texto)
+  })
+})
 
-//teste
 
 
 
