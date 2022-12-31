@@ -142,6 +142,12 @@ describe('testes de campo de texto', function(){
 })
 
 
+describe('encontre o gato', function(){
+  it('encontrando o gato', function(){
+    cy.get('span[id="cat"]').invoke('show').should('be.visible')
+  })
+})
+
 
 
 /*describe('envia o formuário com sucesso usando um comando customizado', function() {
